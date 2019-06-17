@@ -1,0 +1,58 @@
+<div>
+
+  <link rel="stylesheet" href="{{ url_for('static',filename='css/content.css')}}">
+
+  <ul>
+    <li>1</li>
+    <li>2</li>
+    <li>3</li>
+    <li>4</li>
+    <li>5</li>
+    <li>6</li>
+    <!-- 控制下面的内容出现在<li>下方. -->
+    <p style='clear:both'></p>
+  </ul>
+
+  <!-- 定义一个叫 hello 的函数 -->
+  {% macro hello() %}
+        <h4>这是一个流水线的产品</h4>
+  {% endmacro %}
+
+  <!-- 调用 hello 函数 -->
+  {{ hello() }}
+  {{ hello() }}
+  {{ hello() }}
+  {{ hello() }}
+  {{ hello() }}
+
+
+
+  <!-- 定义一个参数函数 -->
+  {% macro say_hello(name,age) %}
+        <h2>你好, {{ name }}</h2>
+        <h3>您的年龄是: {{ age }}</h3>
+  {% endmacro %}
+
+
+  <!-- 调用参数函数 -->
+  {{ say_hello('XH',18) }}
+
+
+
+<!-- 从外部文件导入函数 -->
+  {% from 'macro.html' import what %}
+
+  <!-- 使用外部导入的函数 -->
+  {{ what('fuck') }}
+
+  {{ what('666') }}
+
+
+
+
+
+
+
+
+
+</div>

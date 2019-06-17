@@ -1,0 +1,56 @@
+<!-- 继续 index 填坑 -->
+{% extends 'index.html'%}
+
+{% block header %}
+  <!-- 添加{{super()}} 使新内容不会覆盖老内容-->
+  {{ super() }}
+  <h1>这是一个大头</h1>
+{% endblock %}
+
+
+{% block extCSS %}
+  <!-- 想css不被覆盖 也要加{{ super() }} -->
+  {{ super() }}
+  <link rel="stylesheet" href="{{ url_for('static',filename='css/mine.css')}}">
+{% endblock %}
+
+
+{% block content %}
+  <h3>啦啦啦啦啦啦啦</h3>
+
+    {% include 'content.html'%}
+
+    <hr>
+
+
+<ol>
+    <!-- 循环 -->
+    {% for hobby in hobbies %}
+
+        {% if loop.first %}
+            <li style='color:red'>{{ hobby|upper }}:{{ loop.revindex }}</li>
+            {% elif loop.last %}
+            <li style='color:blue'>{{ hobby }}:{{ loop.revindex }}</li>
+            {% else %}
+            <li style='color:greenyellow'>{{ hobby|lower }}:{{ loop.revindex }}</li>
+        {% endif %}
+
+
+    {% endfor %}
+</ol>
+
+<!-- 去标签 -->
+<p>{{ msg|striptags }}</p>
+
+<!-- 去标签加渲染 -->
+<p>{{ msg|safe }}</p>
+
+<h3>{{ username|default('Tom') }}</h3>
+
+<h4>{{ msg|last }}</h4>
+
+<h4>{{ msg|first }}</h4>
+
+<h3>{{ msg|safe|reverse }}</h3>
+
+{% endblock %}

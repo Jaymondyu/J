@@ -1,0 +1,12 @@
+<!-- 填坑 -->
+{% extends 'base.html'%}
+
+<!-- 引入css -->
+{% block extCSS %}
+  <link rel="stylesheet" href="{{ url_for('static',filename='css/index.css')}}">
+{% endblock %}
+
+
+{% block header %}
+  <h2>今天天气不错</h2>
+{% endblock %}
