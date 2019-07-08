@@ -18,13 +18,25 @@ def index():
 
 @app.route('/search/',methods=['POST'])
 def search():
+    # Gene 是前端传回的 genes的值
     Gene = flask.request.values['genes']
+    # 编写查询语言
     sql= "select * FROM illuminamethyl450_hg19_gpl16304_tcgalegacy where gene LIKE '%" + Gene + "%'"
+    # 执行查询语言
     cursor.execute(sql)
+    # 获取结果
     result = cursor.fetchall()
-    # for data in
-    print(type(result))
-    return json.dumps(result)
+    # 查询结果条数
+    number="select COUNT(id) FROM illuminamethyl450_hg19_gpl16304_tcgalegacy where gene LIKE '%" + Gene + "%'"
+    # 执行条数查询
+    cursor.execute(number)
+    num = cursor.fetchall()
+    nb=num[0]
+    n=nb[0]
+
+    sb = [result,n]
+
+    return json.dumps(sb)
 
 @app.route('/Tool/')
 def Tool():
