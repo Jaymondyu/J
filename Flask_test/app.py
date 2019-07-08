@@ -8,8 +8,8 @@ import json
 
 app = flask.Flask(__name__)
 
-conn=mysql.connector.connect(user="root",password="plokijuh9",database="j")#连接数据库，创建Flask_app数据库
-cursor=conn.cursor()
+conn = mysql.connector.connect(user = 'root',password = 'plokijuh9',database ='j') #连接数据库，创建Flask_app数据库
+cursor = conn.cursor()
 
 
 @app.route('/')
@@ -27,12 +27,12 @@ def search():
     # 获取结果
     result = cursor.fetchall()
     # 查询结果条数
-    number="select COUNT(id) FROM illuminamethyl450_hg19_gpl16304_tcgalegacy where gene LIKE '%" + Gene + "%'"
+    number = "select COUNT(id) FROM illuminamethyl450_hg19_gpl16304_tcgalegacy where gene LIKE '%" + Gene + "%'"
     # 执行条数查询
     cursor.execute(number)
     num = cursor.fetchall()
-    nb=num[0]
-    n=nb[0]
+    nb = num[0]
+    n = nb[0]
 
     sb = [result,n]
 
