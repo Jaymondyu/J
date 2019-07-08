@@ -1,12 +1,17 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="../static/css/style.css">
+
     <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+
     <title>unknown</title>
     <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdn.bootcss.com/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://cdn.bootcss.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script src="../static/js/jquery.min.js"></script>
+    <link rel="stylesheet" href="../static/css/style.css">
+
 </head>
 <body style="background-color: #f0ffff">
 <div class="daohang">
@@ -43,15 +48,60 @@
     <h3 style="padding-top: 15px">Enter Gene Name:</h3>
     <div class="col-lg-12" style="position: center;padding-top: 30px">
         <div class="input-group">
-          <input type="text" class="form-control" placeholder="Enter gene name...">
+          <input type="text" id="genes"  class="form-control" placeholder="Enter gene name...">
             <span class="input-group-btn">
-                <button class="btn btn-default" type="button">Go!</button>
+                <button onclick="func_1()" class="btn btn-default">Go!</button>
             </span>
         </div>
     </div>
 </div>
 
+<div id="datatable" class="table-responsive" style="height: 540px;width: 960px;"></div>
+
 
 
 </body>
+<script>
+    {#var sendjson = $('.form-control').val();#}
+    {#$.get("/?sendjson="+sendjson, function(data){#}
+    {#     console.log(data)#}
+    {# }); #}
+    function func_1() {
+        console.log($('#genes').val())
+        $.ajax({
+            url:'/search/',
+            type:'post',
+            data:{'genes':$('#genes').val()},
+            datatype:'json',
+            success:function (data) {
+                var data = JSON.parse(data);
+                $('.table').remove();
+                var myhtml = `<table class="table">
+                        <tr>
+                            <th>ID</th> <th>Gene</th> <th>Chrom</th> <th>ChromStart</th> <th>ChromEnd</th>
+                        </tr>
+                        </table>`
+                $('#datatable').append(myhtml)
+                for (var i=0;i<data.length;i++){
+                    var alltd = "";
+                    //$('#datatable').find('p').remove();
+                    var mytr =$('<tr class="mytr"></tr>')
+                    for(var j=0;j<data[i].length;j++){
+                        alltd += '<td>'+data[i][j]+'</td>'
+                    }
+
+                    $(mytr).append(alltd);
+                    $('.table').append(mytr)
+
+                }
+            },
+            error: function (e) {
+                alert('error')
+            }
+
+
+        })
+    }
+
+</script>
 </html>
