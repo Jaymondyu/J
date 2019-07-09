@@ -56,8 +56,7 @@
     </div>
 </div>
 
-<div id="datatable" class="table-responsive" style="height: 540px;width: 960px;">
-</div>
+
 
 
 
@@ -82,12 +81,12 @@
                 data = data[0]
                 var n = data[1]
                 $('.table').remove();
-                var myhtml = `<table class="table">
+                var myhtml = `<div id="datatable" class="table-responsive" style="height: 540px;width: 960px;border: #313131 solid 3px;"><table class="table">
                         <tr>
                             <th>ID</th> <th>Gene</th> <th>Chrom</th> <th>ChromStart</th> <th>ChromEnd</th>
                         </tr>
-                        </table>`
-                $('#datatable').append(myhtml)
+                        </table></div>`
+                $('body').append(myhtml)
                 for (var i=0;i<data.length;i++){
                     var alltd = "";
                     //$('#datatable').find('p').remove();
