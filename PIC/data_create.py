@@ -5,9 +5,9 @@ import os
 
 def generate(dirname):
     face_cascade = cv2.CascadeClassifier('haarcascade_frontalface_default.xml')
-    eye_cascade = cv2.CascadeClassifier('haarcascade_eye.xml')
+    # eye_cascade = cv2.CascadeClassifier('haarcascade_eye.xml')
     # 带眼镜的时候可以用下面这个
-    # eye_cascade = cv2.CascadeClassifier('D:/opencv/sources/data/haarcascades/haarcascade_eye_tree_eyeglasses.xml')
+    eye_cascade = cv2.CascadeClassifier('haarcascade_eye_tree_eyeglasses.xml')
 
     # 创建目录
     if (not os.path.isdir(dirname)):
@@ -31,10 +31,11 @@ def generate(dirname):
 
         cv2.imshow("camera", frame)
         if cv2.waitKey(100) & 0xff == ord("q"):
+
             break
 
         # 下面是你想要多少张图片就停止
-        if count > 20:
+        if count > 100:
             break
 
 
@@ -42,5 +43,5 @@ def generate(dirname):
     cv2.destroyAllWindows()
 
 if __name__ == "__main__":
-    generate("C:/Users/Administrator/Desktop/mygit/J/PIC/cam_data")
+    generate("C:/Users/Administrator/Desktop/mygit/J/PIC/YexiHuang")
     # 你生成的图片放在的电脑中的地方
