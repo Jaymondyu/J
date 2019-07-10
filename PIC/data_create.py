@@ -35,7 +35,7 @@ def generate(dirname):
             break
 
         # 下面是你想要多少张图片就停止
-        if count > 100:
+        if count > 30:
             break
 
 
@@ -43,5 +43,5 @@ def generate(dirname):
     cv2.destroyAllWindows()
 
 if __name__ == "__main__":
-    generate("C:/Users/Administrator/Desktop/mygit/J/PIC/YexiHuang")
+    generate("C:/Users/Administrator/Desktop/mygit/J/PIC/MingwangLiu")
     # 你生成的图片放在的电脑中的地方

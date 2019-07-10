@@ -27,7 +27,7 @@ def read_images(path, sz = None):
     return [X, y]
 
 def face_rec(img_path):
-    names = ['','','JialunYu','','Yunpengwu','QiongChen','YexiHuang']
+    names = ['','','JialunYu','','Yunpengwu','QiongChen','YexiHuang','MingwangLiu']
     [X,y] = read_images(img_path)
     y = np.asarray(y, dtype=np.int32)
     model = cv2.face.EigenFaceRecognizer_create()
