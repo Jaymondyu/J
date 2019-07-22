@@ -3,13 +3,13 @@
     <meta charset="UTF-8">
 
     <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.15/css/jquery.dataTables.min.css">
 
     <title>unknown</title>
-    <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdn.bootcss.com/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://cdn.bootcss.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     <script src="../static/js/jquery.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
     <link rel="stylesheet" href="../static/css/style.css">
 
 </head>
@@ -81,10 +81,11 @@
                 data = data[0]
                 var n = data[1]
                 $('.table').remove();
-                var myhtml = `<div id="datatable" class="table-responsive" style="height: 540px;width: 960px;border: #313131 solid 3px;"><table class="table">
-                        <tr>
+                var myhtml = `<div id="datatable" class="table-responsive" style="height: 540px;width: 960px;border: #313131 solid 1px;"><table id="table_id" class="table">
+                        <thead><tr>
                             <th>ID</th> <th>Gene</th> <th>Chrom</th> <th>ChromStart</th> <th>ChromEnd</th>
-                        </tr>
+                        </tr></thead>
+                        <tbody></tbody>
                         </table></div>`
                 $('body').append(myhtml)
                 for (var i=0;i<data.length;i++){
@@ -96,9 +97,15 @@
                     }
 
                     $(mytr).append(alltd);
-                    $('.table').append(mytr)
+                    $('tbody').append(mytr)
+
 
                 }
+                $(document).ready(function(){
+                    $('#table_id').DataTable({
+                      "paging": true
+                    });
+                });
             },
             error: function (e) {
                 alert('error')
