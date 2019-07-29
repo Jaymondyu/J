@@ -5,6 +5,57 @@
     <title>人员账户管理</title>
 </head>
 <body>
-
+    <button type="button" id="click" onclick="func_1()">Click Me!</button>
 </body>
+
+<script>
+    function func_1() {
+        console.log($('#click').val())
+        $.ajax({
+            url:'/search/',
+            type:'post',
+            data:{'data':$('#click').val()},
+            datatype:'json',
+            success:function (data) {
+
+                // var num = JSON.paese(data[1]);
+
+                var data = JSON.parse(data);
+                data = data[0]
+                var n = data[1]
+                $('.table').remove();
+                var myhtml = `<div id="datatable" class="table-responsive" style="height: 540px;width: 960px;border: #313131 solid 1px;"><table id="table_id" class="table">
+                        <thead><tr>
+                            <th>ID</th> <th>Gene</th> <th>Chrom</th> <th>ChromStart</th> <th>ChromEnd</th>
+                        </tr></thead>
+                        <tbody></tbody>
+                        </table></div>`
+                $('body').append(myhtml)
+                for (var i=0;i<data.length;i++){
+                    var alltd = "";
+                    //$('#datatable').find('p').remove();
+                    var mytr =$('<tr class="mytr"></tr>')
+                    for(var j=0;j<data[i].length;j++){
+                        alltd += '<td>'+data[i][j]+'</td>'
+                    }
+
+                    $(mytr).append(alltd);
+                    $('tbody').append(mytr)
+
+
+                }
+                $(document).ready(function(){
+                    $('#table_id').DataTable({
+                      "paging": true
+                    });
+                });
+            },
+            error: function (e) {
+                alert('error')
+            }
+
+
+        })
+    }
+</script>
 </html>
