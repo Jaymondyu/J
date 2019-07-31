@@ -3,37 +3,45 @@
 <head>
     <meta charset="UTF-8">
     <title>人员账户管理</title>
+    <script src="../static/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.15/css/jquery.dataTables.min.css">
+    <script src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://cdn.bootcss.com/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://cdn.bootcss.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 </head>
 <body>
-    <button type="button" id="click" onclick="func_1()">Click Me!</button>
+    <center>
+    <button type="button" id="click" onclick="func_1()">刷新列表</button>
+    </center>
+
+
 </body>
 
 <script>
     function func_1() {
-        console.log($('#click').val())
         $.ajax({
-            url:'/search/',
-            type:'post',
-            data:{'data':$('#click').val()},
-            datatype:'json',
+            url: '/list/',
+            type: 'post',
+            data: {'MMP': "select id,name,account FROM test"},
+            datatype: 'json',
             success:function (data) {
 
                 // var num = JSON.paese(data[1]);
 
                 var data = JSON.parse(data);
-                data = data[0]
-                var n = data[1]
+
                 $('.table').remove();
-                var myhtml = `<div id="datatable" class="table-responsive" style="height: 540px;width: 960px;border: #313131 solid 1px;"><table id="table_id" class="table">
+                $('.table-responsive').remove();
+                var myhtml = `<div id="datatable" class="table-responsive"><table class="table" id="table_id">
                         <thead><tr>
-                            <th>ID</th> <th>Gene</th> <th>Chrom</th> <th>ChromStart</th> <th>ChromEnd</th>
+                            <th>Id</th> <th>Name</th> <th>Account</th>
                         </tr></thead>
                         <tbody></tbody>
                         </table></div>`
                 $('body').append(myhtml)
                 for (var i=0;i<data.length;i++){
                     var alltd = "";
-                    //$('#datatable').find('p').remove();
                     var mytr =$('<tr class="mytr"></tr>')
                     for(var j=0;j<data[i].length;j++){
                         alltd += '<td>'+data[i][j]+'</td>'
@@ -41,20 +49,34 @@
 
                     $(mytr).append(alltd);
                     $('tbody').append(mytr)
-
-
                 }
-                $(document).ready(function(){
+                                $(document).ready(function(){
                     $('#table_id').DataTable({
                       "paging": true
                     });
                 });
+
             },
             error: function (e) {
+
                 alert('error')
             }
 
 
+        })
+    }
+
+
+    function func_name() {
+        $.ajax({
+            url: '/add/',
+            type: 'post',
+            data: {'name': $('#name').val(),'account': ('#account').val()},
+            datatype: 'json',
+            success: function (a1) {
+                var a1 = JSON.parse(a1)
+                alert(a1)
+            }
         })
     }
 </script>
